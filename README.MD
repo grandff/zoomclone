@@ -1,6 +1,6 @@
-## Zoom Clone Coding
+# Zoom Clone Coding
 
-# Setup
+## Setup
 1) package 설정
 	- npm init -y
 2) 설정용 파일들 추가
@@ -48,3 +48,11 @@
 
 	const handleListen = () => console.log(`Localhost on 3000`);
 	app.listen(3000, handleListen);
+	
+## Chat with WebSockets
+### WebSockets In NodeJs
+1) ws 설치
+	- web socket의 기본적인 것들이 다 들어가있는 라이브러리임
+	- npm install ws
+2) express 서버와 ws 소켓 연결
+	- http와 ws를 동시에 사용하기 위해 server.js 쪽 수정 
