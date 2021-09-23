@@ -15,4 +15,10 @@ const handleListen = () => console.log(`Server on 3000`);
 const server = http.createServer(app);		// express application으로부터 서버 생성
 const wss = new WebSocket.Server({server});	// 여기선 동일 포트에서 http, ws 둘다 처리하기 위해 해놨음. 굳이 이렇게 안에 server를 안올려도 됨
 
+// wss 에서 콜백으로 주는 것들 중에 socket은 통신을 하기 위해 필요하므로 별도로 저장
+const handleConnection = (socket) => {
+	console.log(socket);
+}
+wss.on("connection", handleConnection);		// web sockect 연결
+
 server.listen(3000, handleListen);

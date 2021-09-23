@@ -56,3 +56,7 @@
 	- npm install ws
 2) express 서버와 ws 소켓 연결
 	- http와 ws를 동시에 사용하기 위해 server.js 쪽 수정 
+### WebSocket Events
+1) backend와 fronted 연결
+	- ws를 활용해서 연결함
+	
