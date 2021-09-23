@@ -57,6 +57,9 @@
 2) express 서버와 ws 소켓 연결
 	- http와 ws를 동시에 사용하기 위해 server.js 쪽 수정 
 ### WebSocket Events
-1) backend와 fronted 연결
+1) backend와 frontend 연결
 	- ws를 활용해서 연결함
+### WebSocket Messages
+1) backend와 frontend 간 통신
+	- 서로 메시지를 보내면서 통신 테스트
 	
