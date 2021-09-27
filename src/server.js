@@ -1,6 +1,7 @@
 import express from "express";
 import http from "http";
 import WebSocket from "ws";
+import SocketIo from "socket.io";
 
 const app = express();
 app.set("view engine", "pug");
@@ -12,7 +13,15 @@ app.get("/*", (req,res) => res.redirect("/"));	// 다른 url 안쓰고 홈만 �
 
 const handleListen = () => console.log(`Server on 3000`);
 
-const server = http.createServer(app);		// express application으로부터 서버 생성
+const httpServer = http.createServer(app);		// express application으로부터 서버 생성
+const wsServer = SocketIo(httpServer);	// socket io server 생성
+
+wsServer.on("connection", socket => {
+	console.log(socket);
+})
+
+httpServer.listen(3000, handleListen);
+/*
 const wss = new WebSocket.Server({server});	// 여기선 동일 포트에서 http, ws 둘다 처리하기 위해 해놨음. 굳이 이렇게 안에 server를 안올려도 됨
 const sockets = [];	// 서버에 연결한 소켓 정보를 저장할 임시 저장소
 
@@ -50,5 +59,4 @@ wss.on("connection", (socket) => {
 	});	// 브라우저에서 받은 메시지
 	
 });		// web sockect 연결
-
-server.listen(3000, handleListen);
+*/

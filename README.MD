@@ -79,3 +79,9 @@
 	- 서버에서는 parse를 사용해서 json 데이터 확인
 	- switch를 활용해 type별로 데이터 처리
 	
+	
+## SocketIo
+### Installing SocketIo
+1) npm install socket.io
+2) websocket으로 만든 부분 모두 주석처리하고 socketio로 수정처리
+	- socket io에서 socket.io.js 라는 스크립트를 제공해주는데 브라우저보다 제공해주는 기능이 많기 때문에 별도로 선언해서 써야함
