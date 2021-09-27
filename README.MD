@@ -62,4 +62,10 @@
 ### WebSocket Messages
 1) backend와 frontend 간 통신
 	- 서로 메시지를 보내면서 통신 테스트
+### Chat Completed
+1) message를 보낼 수 있는 form 생성
+	- home.pug에 form, input, button 생성
+	- app.js 에 event listener 추가
+2) message를 받고 서버에서 확인
+	- 받은 메시지를 확인하기 위해 메시지 받으면 브라우저단으로 해당 메시지를 다시 리턴해줌
 	

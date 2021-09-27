@@ -23,15 +23,17 @@ function onSocketClose() {
 
 // socket을 통해 메시지 전달
 function onSocketMessage(message){
-	console.log(message.toString("UTF8")); // terminal 에서 깨질 경우 조치
+	//console.log(message.toString("UTF8")); // terminal 에서 깨질 경우 조치	
 }
 
 // wss 에서 콜백으로 주는 것들 중에 socket은 통신을 하기 위해 필요하므로 별도로 저장
 wss.on("connection", (socket) => {
 	console.log("Connected to Browser");
 	socket.on("close", onSocketClose);	// 브라우저가 닫히면 이벤트 발생
-	socket.on("message", onSocketMessage);	// 브라우저에서 받은 메시지
-	socket.send("hello!");
+	socket.on("message", (message) => {
+		socket.send(message.toString("UTF8"));
+	});	// 브라우저에서 받은 메시지
+	
 });		// web sockect 연결
 
 server.listen(3000, handleListen);
