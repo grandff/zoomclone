@@ -17,7 +17,12 @@ const httpServer = http.createServer(app);		// express application으로부터 �
 const wsServer = SocketIo(httpServer);	// socket io server 생성
 
 wsServer.on("connection", socket => {
-	console.log(socket);
+	socket.on("enter_room", (msg, done) => {
+		console.log(msg);
+		setTimeout(() => {
+			done();
+		}, 5000);
+	});
 })
 
 httpServer.listen(3000, handleListen);
