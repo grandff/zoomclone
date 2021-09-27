@@ -74,3 +74,8 @@
 2) 닉네임을 입력할 수 있는 form 생성
 	- 닉네임과 message를 구분할 수 있도록 json 형태로 리턴
 	- type을 통해 form 구분
+3) 각 input value를 구분하기 위해 json 형태로 리턴
+	- json object 형태가 아닌 string 형태로 변환해서 리턴(JSON.stringify)
+	- 서버에서는 parse를 사용해서 json 데이터 확인
+	- switch를 활용해 type별로 데이터 처리
+	

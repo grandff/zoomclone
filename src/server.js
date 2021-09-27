@@ -34,9 +34,19 @@ const changeUTF8 = (str) => str.toString("UTF8");
 wss.on("connection", (socket) => {	
 	console.log("Connected to Browser");
 	sockets.push(socket);	// 연결한 소켓 저장
+	socket["nickname"] = "Anon";	// 닉네임을 안정하고 보낼수도 있으므로 초기 닉네임 설정
 	socket.on("close", onSocketClose);	// 브라우저가 닫히면 이벤트 발생
-	socket.on("message", (message) => {
-		sockets.forEach(aSocket => aSocket.send(changeUTF8(message)));		// 저장된 모든 소켓에 foreach를 사용해서 다 보내줌
+	socket.on("message", (msg) => {
+		const message = JSON.parse(msg);
+		
+		switch(message.type){		// type으로 데이터 형태 구분
+			case "new_message" : 
+				sockets.forEach(aSocket => aSocket.send(`${socket.nickname} : ${changeUTF8(message.payload)}`));
+				
+			case "nickname" : 
+				socket["nickname"] = message.payload;
+		}
+		
 	});	// 브라우저에서 받은 메시지
 	
 });		// web sockect 연결
