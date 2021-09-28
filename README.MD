@@ -89,3 +89,7 @@
 1) object를 통째로 주고받는 것만 가능한 websocket과는 달리 데이터 유형을 선언해서 줄 수 있음
 2) send가 아닌 emit를 통해 사용
 	- 마지막 매개변수에 function을 주면 call back 함수로 사용 가능함
+### Rooms
+1) socket에서 기본적으로 제공해주는 room 기능 활용
+	- onAny를 통해 어디서든 catch listener 사용 가능
+2) 채팅방에 접속했을 때 사용하는 메시지보내는 창 추가

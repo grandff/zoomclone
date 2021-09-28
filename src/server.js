@@ -17,11 +17,14 @@ const httpServer = http.createServer(app);		// express application으로부터 �
 const wsServer = SocketIo(httpServer);	// socket io server 생성
 
 wsServer.on("connection", socket => {
-	socket.on("enter_room", (msg, done) => {
-		console.log(msg);
-		setTimeout(() => {
-			done();
-		}, 5000);
+	// catch listener
+	socket.onAny((event) => {
+		console.log(event);
+	});
+	
+	socket.on("enter_room", (roomName, done) => {
+		socket.join(roomName);		// 해당 채팅방 접속
+		done();						// 콜백함수 실행
 	});
 })
 
