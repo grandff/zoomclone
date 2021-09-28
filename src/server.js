@@ -22,8 +22,9 @@ wsServer.on("connection", socket => {
 		console.log(event);
 	});
 	
-	socket.on("enter_room", (roomName, done) => {
+	socket.on("enter_room", (roomName, done) => {		
 		socket.join(roomName);		// 해당 채팅방 접속
+		socket.to(roomName).emit("welcome");	// welcome 이벤트 발생
 		done();						// 콜백함수 실행
 	});
 })

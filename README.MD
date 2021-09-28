@@ -93,3 +93,6 @@
 1) socket에서 기본적으로 제공해주는 room 기능 활용
 	- onAny를 통해 어디서든 catch listener 사용 가능
 2) 채팅방에 접속했을 때 사용하는 메시지보내는 창 추가
+### Room Messages
+1) 채팅방에 접속한 경우 해당 room에 있는 전체한테 welcome 이벤트 발생
+2) 프론트에서는 서버에서 발생시킨 welcome 이벤트 리스너 등록

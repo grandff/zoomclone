@@ -24,5 +24,17 @@ function handleRoomSubmit(event){
 	input.value = "";
 }
 
+// 메시지 전송
+function addMessage(message){
+	const ul = room.querySelector("ul");
+	const li = document.createElement("li");
+	li.innerText = message;
+	ul.appendChild(li);
+}
+
+// welcome event listener
+socket.on("welcome", () => {
+	addMessage("someone joined!");
+});
 // add form submit event
 form.addEventListener("submit", handleRoomSubmit);
