@@ -27,6 +27,18 @@ wsServer.on("connection", socket => {
 		socket.to(roomName).emit("welcome");	// welcome 이벤트 발생
 		done();						// 콜백함수 실행
 	});
+	
+	// 사용자가 나간 경우 알림 처리
+	socket.on("disconnecting", () => {
+		// socket rooms가 array 형태기 때문에 리턴되는 배열을 하나씩 조회
+		socket.rooms.forEach(room => socket.to(room).emit("bye"));
+	});
+	
+	// 메시지 보내는 이벤트 처리
+	socket.on("new_message", (msg, room, done) => {
+		socket.to(room).emit("new_message", msg);
+		done();
+	});
 })
 
 httpServer.listen(3000, handleListen);

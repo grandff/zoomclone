@@ -96,3 +96,8 @@
 ### Room Messages
 1) 채팅방에 접속한 경우 해당 room에 있는 전체한테 welcome 이벤트 발생
 2) 프론트에서는 서버에서 발생시킨 welcome 이벤트 리스너 등록
+### Room Notifications
+1) 유저가 방에 떠났을 경우 알려주는 처리
+	- disconnecting event 활용
+	- 서버랑 완전히 끊어진게 아닌 사용자가 일시적으로 접속을 중단할때 호출됨
+2) 메세지 전송 리스너 추가
