@@ -105,4 +105,8 @@
 1) nickname 설정을 방 입장 단계에서 부터 해주기
 	- nickname, room name 필수 체크 후 소켓 연결
 	- 해당 유저의 메시지 보내기, 방 나가기 등 모든 이벤트에 닉네임 붙여서 알려주기
-	
+### Room Count
+1) Adaptar 에 대해 사용해야함
+	- 좀 어려우므로 강의 다시 보기 ...
+2) server에서 전체 방을 리턴해주는 함수 생성
+	- sockets의 adapter 안에 있는 sids와 rooms 사용

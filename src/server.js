@@ -16,6 +16,20 @@ const handleListen = () => console.log(`Server on 3000`);
 const httpServer = http.createServer(app);		// express application으로부터 서버 생성
 const wsServer = SocketIo(httpServer);	// socket io server 생성
 
+// 전체 방을 알려주는 함수
+function publicRooms(){
+	const {sockets : {adapter : {sids, rooms}}} = wsServer;
+	const publicRooms = [];
+	rooms.forEach((_, key) => {
+		console.log(key, sids.get(key));
+		if(sids.get(key) === undefined){
+			publicRooms.push(key);
+		}
+	});
+
+	return publicRooms
+}
+
 wsServer.on("connection", socket => {
 	// catch listener
 	socket.onAny((event) => {
