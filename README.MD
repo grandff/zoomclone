@@ -112,3 +112,7 @@
 	- sockets의 adapter 안에 있는 sids와 rooms 사용
 3) 새로운 방이 만들어지면 모든 사용자에게 목록 리턴
 	- 서버에 있는 모두에게 보내야하므로 server sockets emit 사용
+### User Count
+1) set 형을 사용해서 size를 통해 사용자 목록 리턴
+	- disconnecting은 방을 나가기 전이므로 room에 접근이 가능함
+	- 대신 사용자 수 셀때는 나가기 전에 세는것이므로 -1을 해줘야 정확한 값

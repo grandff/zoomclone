@@ -8,13 +8,14 @@ room.hidden = true;
 let roomName;		// 채팅방 이름
 
 // 채팅방에 접속했을때 메시지 입력 창을 보여주는 콜백함수
-function showRoom(){
+function showRoom(newCount){
 	welcome.hidden = true;
 	room.hidden = false;
 	const h3 = room.querySelector("h3");
 	h3.innerText = `Room ${roomName}`;	
 	const form = room.querySelector("form");
 	form.addEventListener("submit", handleMessageSubmit);
+	showUsers(newCount);
 }
 
 // send message submit function
@@ -56,13 +57,21 @@ function addMessage(message){
 	ul.appendChild(li);
 }
 
+// 전체 사용자 수 리턴
+function showUsers(newCount){
+	const h3 = room.querySelector("h3");
+	h3.innerText = `Room ${roomName}의 접속자 수 ${newCount}`
+}
+
 // welcome event listener
-socket.on("welcome", (user) => {
+socket.on("welcome", (user, newCount) => {
+	showUsers(newCount);
 	addMessage(`${user}가 입장하셨습니다!!`);
 });
 
 // bye event listener
-socket.on("bye", (left) => {
+socket.on("bye", (left, newCount) => {
+	showUsers(newCount);
 	addMessage(`${left}가 나갔어요 :( `);
 });
 

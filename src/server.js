@@ -30,6 +30,11 @@ function publicRooms(){
 	return publicRooms
 }
 
+// 해당 채팅방 안의 사용자 수 세기
+function countRoom(roomName){
+	return wsServer.sockets.adapter.rooms.get(roomName)?.size;
+}
+
 wsServer.on("connection", socket => {
 	// catch listener
 	socket.onAny((event) => {
@@ -40,9 +45,9 @@ wsServer.on("connection", socket => {
 	socket.on("enter_room", (roomName, nickname, done) => {		
 		socket["nickname"] = nickname;	// 닉네임 설정
 		socket.join(roomName);		// 해당 채팅방 접속
-		socket.to(roomName).emit("welcome", socket.nickname);	// welcome 이벤트 발생
+		socket.to(roomName).emit("welcome", socket.nickname, countRoom(roomName));	// welcome 이벤트 발생
 		wsServer.sockets.emit("room_change", publicRooms());	// 전체 채팅 방 수 리턴
-		done();						// 콜백함수 실행
+		done(countRoom(roomName));						// 콜백함수 실행
 	});
 
 	// 채팅방 종료 이벤트
@@ -53,7 +58,7 @@ wsServer.on("connection", socket => {
 	// 사용자가 나간 경우 알림 처리
 	socket.on("disconnecting", () => {
 		// socket rooms가 array 형태기 때문에 리턴되는 배열을 하나씩 조회
-		socket.rooms.forEach(room => socket.to(room).emit("bye", socket.nickname));
+		socket.rooms.forEach(room => socket.to(room).emit("bye", socket.nickname, countRoom(room) - 1));
 	});
 	
 	// 메시지 보내는 이벤트 처리
