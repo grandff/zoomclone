@@ -22,23 +22,24 @@ wsServer.on("connection", socket => {
 		console.log(event);
 	});
 	
-	socket.on("enter_room", (roomName, done) => {		
+	socket.on("enter_room", (roomName, nickname, done) => {		
+		socket["nickname"] = nickname;	// 닉네임 설정
 		socket.join(roomName);		// 해당 채팅방 접속
-		socket.to(roomName).emit("welcome");	// welcome 이벤트 발생
+		socket.to(roomName).emit("welcome", socket.nickname);	// welcome 이벤트 발생
 		done();						// 콜백함수 실행
 	});
 	
 	// 사용자가 나간 경우 알림 처리
 	socket.on("disconnecting", () => {
 		// socket rooms가 array 형태기 때문에 리턴되는 배열을 하나씩 조회
-		socket.rooms.forEach(room => socket.to(room).emit("bye"));
+		socket.rooms.forEach(room => socket.to(room).emit("bye", socket.nickname));
 	});
 	
 	// 메시지 보내는 이벤트 처리
 	socket.on("new_message", (msg, room, done) => {
-		socket.to(room).emit("new_message", msg);
+		socket.to(room).emit("new_message", `${socket.nickname} : ${msg}`);
 		done();
-	});
+	});	
 })
 
 httpServer.listen(3000, handleListen);

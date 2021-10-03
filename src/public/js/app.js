@@ -32,10 +32,20 @@ function handleMessageSubmit(event){
 // room enter submit function
 function handleRoomSubmit(event){
 	event.preventDefault();
-	const input = form.querySelector("input");
-	socket.emit("enter_room", input.value, showRoom);
-	roomName = input.value;
-	input.value = "";
+	const nameInput = form.querySelector("input[id=nameInput]");	// 닉네임
+	const roomInput = form.querySelector("input[id=roomInput]");	// 방이름
+	if(nameInput.value === "" || !nameInput.value){
+		alert("닉네임을 입력해주세요.");
+		return false;
+	}
+	if(roomInput.value === "" || !roomInput.value){
+		alert("채팅방 이름을 입력해주세요.");
+		return false;
+	}
+
+	socket.emit("enter_room", roomInput.value, nameInput.value, showRoom);
+	roomName = roomInput.value;
+	roomInput.value = "";
 }
 
 // 메시지 전송
@@ -47,13 +57,13 @@ function addMessage(message){
 }
 
 // welcome event listener
-socket.on("welcome", () => {
-	addMessage("someone joined!");
+socket.on("welcome", (user) => {
+	addMessage(`${user}가 입장하셨습니다!!`);
 });
 
 // bye event listener
-socket.on("bye", () => {
-	addMessage("someone left :(");
+socket.on("bye", (left) => {
+	addMessage(`${left}가 나갔어요 :( `);
 });
 
 // new_message event listener
