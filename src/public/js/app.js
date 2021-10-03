@@ -66,6 +66,21 @@ socket.on("bye", (left) => {
 	addMessage(`${left}가 나갔어요 :( `);
 });
 
+// room list change event listener
+socket.on("room_change", (rooms) => {
+	const roomList = welcome.querySelector("ul");
+	roomList.innerHTML = "";
+	// 방목록이 비어있으면 그냥 리턴하고 끝
+	if(rooms.length === 0) return;
+
+	// 방목록 생성
+	rooms.forEach(room => {
+		const li = document.createElement("li");
+		li.innerText = room;
+		roomList.append(li);
+	});
+});
+
 // new_message event listener
 socket.on("new_message", addMessage);
 

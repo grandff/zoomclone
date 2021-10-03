@@ -36,12 +36,19 @@ wsServer.on("connection", socket => {
 		console.log(event);
 	});
 	
+	// 채팅방 접속 이벤트
 	socket.on("enter_room", (roomName, nickname, done) => {		
 		socket["nickname"] = nickname;	// 닉네임 설정
 		socket.join(roomName);		// 해당 채팅방 접속
 		socket.to(roomName).emit("welcome", socket.nickname);	// welcome 이벤트 발생
+		wsServer.sockets.emit("room_change", publicRooms());	// 전체 채팅 방 수 리턴
 		done();						// 콜백함수 실행
 	});
+
+	// 채팅방 종료 이벤트
+	socket.on("disconnect", () => {
+		wsServer.sockets.emit("room_change", publicRooms());
+	})
 	
 	// 사용자가 나간 경우 알림 처리
 	socket.on("disconnecting", () => {

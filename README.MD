@@ -110,3 +110,5 @@
 	- 좀 어려우므로 강의 다시 보기 ...
 2) server에서 전체 방을 리턴해주는 함수 생성
 	- sockets의 adapter 안에 있는 sids와 rooms 사용
+3) 새로운 방이 만들어지면 모든 사용자에게 목록 리턴
+	- 서버에 있는 모두에게 보내야하므로 server sockets emit 사용
